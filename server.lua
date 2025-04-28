@@ -37,10 +37,10 @@ local function destroyElementsFromResource(theResource)
 end
 addEventHandler("onResourceStop", root, destroyElementsFromResource)
 
-addEvent("onBotFindEnemy", true)
-addEvent("onBotWasted", true)
-addEvent("onBotSpawned", true)
-addEvent("onBotFollow", true)
+addEvent("onBotFindEnemy")
+addEvent("onBotWasted")
+addEvent("onBotSpawned")
+addEvent("onBotFollow")
 
 function onPlayerResourceStart(startedResource)
 	if not (startedResource == resource) then
@@ -214,6 +214,7 @@ function spawnBot(x, y, z, rot, skin, int, dim, team, weapon, task, target)
 	if weapon then
 		giveWeapon(bot, weapon, 99999, true)
 	end
+	triggerEvent("onBotSpawned", bot)
 	return bot
 end -- slothbot
 
@@ -244,10 +245,10 @@ function setBotFollow(bot, element)
 	return true
 end
 
-function setPedIdle(bot)
+function setBotIdle(bot)
 	return setElementData(bot, "task", "idle", "broadcast", "deny")
 end
-setPedWait = setPedIdle -- slothbot
+setBotWait = setBotIdle -- slothbot
 
 function setBotChase(bot, element)
 	setElementData(bot, "task", "chase", "broadcast", "deny")
